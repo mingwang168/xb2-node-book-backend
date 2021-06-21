@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+      "module":"CommonJS",
+      "incremental": true, 
+      "target": "es2017", 
+      "declaration": true, 
+      "sourceMap": true,                  
+      "outDir": "./dist", 
+      "removeComments": true,            
+      "strict": true,                
+      "baseUrl": "./", 
+      "allowSyntheticDefaultImports": true, 
+      "esModuleInterop": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true, 
+      "forceConsistentCasingInFileNames": true 
+    },
+    "include":[
+      "src/**/*.ts"
+    ],
+    "exclude":[
+      "node_modules",
+      "dist"
+    ]
+  }
+  
