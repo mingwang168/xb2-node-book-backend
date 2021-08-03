@@ -7,7 +7,7 @@
     "start:dev": "tsc-watch --onSuccess \"node dist/main.js\"",
     "test": "jest",
     "test:watch": "jest --watch",
-    "prebuild":"rimref dist",
+    "prebuild":"rimraf dist",
     "build":"tsc -p tsconfig.build.json"
   },
   "author": "",
