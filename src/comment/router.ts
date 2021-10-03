@@ -11,4 +11,5 @@ router.post('/comments/:commentId/reply',authGuard,commentController.reply);
 router.patch('/comments/:commentId',authGuard,accessControl({possession:true}),commentController.update);
 router.delete('/comments/:commentId',authGuard,accessControl({possession:true}),commentController.destroy);
 router.get('/comments',filter,paginate(COMMENTS_PER_PAGE),commentController.index);
+router.delete('/comments/:parentId/parent',authGuard,commentController.delByParentId);
 export default router;

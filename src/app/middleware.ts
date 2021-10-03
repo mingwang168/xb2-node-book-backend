@@ -20,71 +20,75 @@ export const defaultErrorHandler = (
   switch (error.message) {
     case "USERNAME_IS_REQUIRED":
       statusCode = 400;
-      message = "用户名不能空";
+      message = "Username cannot be empty.";
       break;
     case "PASSWORD_IS_REQUIRED":
       statusCode = 400;
-      message = "密码不能空";
+      message = "Password cannot be empty.";
       break;
     case "USER_ALREADY_EXIST":
       statusCode = 409;
-      message = "此用户已存在";
+      message = "User already exist.";
       break;
     case "USER_DOES_NOT_EXIST":
       statusCode = 400;
-      message = "用户名不存在";
+      message = "User does not exist.";
       break;
     case "UNAUTHORIZED":
       statusCode = 401;
-      message = "请先登录";
+      message = "Login please.";
       break;
     case "PASSWORD_DOES_NOT_MATCH":
       statusCode = 400;
-      message = "密码错误";
+      message = "Wrong password.";
       break;
     case "FILE_NOT_FOUND":
       statusCode = 404;
-      message = "文件不存在";
+      message = "File does not exist.";
       break;
     case "TAG_ALREADY_EXISTS":
       statusCode = 400;
-      message = "标签已存在";
+      message = "Tag already exists";
       break;
     case "BOOK_ALREADY_HAS_THIS_TAG":
       statusCode = 400;
-      message = "内容已经有这个标签";
+      message = "Book already has this tag.";
       break;
     case "FILE_TYPE_NOT_ACCEPT":
       statusCode = 400;
-      message = "不能上传此类型文件";
+      message = "File type not accept.";
       break;
     case "Tag_OF_BOOK_NOT_EXITS":
       statusCode = 404;
-      message = "内容没有这个标签";
+      message = "Tag of this book not exist.";
+      break;
+    case "File_OF_BOOK_NOT_EXITS":
+      statusCode = 404;
+      message = "Book does not have this book cover.";
       break;
     case "NOT_FOUND":
       statusCode = 404;
-      message = "没找到";
+      message = "Not found.";
       break;
     case "USER_NOT_FOUND":
       statusCode = 404;
-      message = "没找到此用户";
+      message = "User not found.";
       break;
     case "PASSWORD_IS_THE_SAME":
       statusCode = 400;
-      message = "要修改的密码不能与原密码相同";
+      message = "Passwords are same.";
       break;
     case "UNABLE_TO_REPLY_THIS_COMMENT":
       statusCode = 401;
-      message = "这个评论不能被回复";
+      message = "This comment cannot be replied.";
       break;
     case "USER_DOES_NOT_OWN_RESOURCE":
       statusCode = 403;
-      message = "您不能处理此内容";
+      message = "You do not own this resource.";
       break;
     default:
       statusCode = 500;
-      message = "服务暂时出现问题~~";
+      message = "Server Out of service~~";
       break;
   }
   res.status(statusCode).send({ message });

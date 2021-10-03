@@ -1,5 +1,5 @@
 import {Request,Response,NextFunction} from 'express';
-import {createUserLikeBook, deleteUserLikeBook} from './service';
+import {createUserLikeBook, deleteUserLikeBook,getBookLikeUsers} from './service';
 
 export const userLikeBookStore=async(req:Request,res:Response,next:NextFunction) => {
 const {bookId}=req.params;
@@ -17,6 +17,16 @@ export const destroyUserLikeBook=async(req:Request,res:Response,next:NextFunctio
     const {id:userId}=req.user;
     try {
         const data=await deleteUserLikeBook(userId!,parseInt(bookId,10));
+        res.send(data);
+    } catch (error) {
+        next(error);
+    }
+}
+export const getBookLikes=async(req:Request,res:Response,next:NextFunction) => {
+    const {bookId}=req.params;
+
+    try {
+        const data=await getBookLikeUsers(parseInt(bookId,10));
         res.send(data);
     } catch (error) {
         next(error);

@@ -1,5 +1,5 @@
 import {Request,Response,NextFunction} from 'express';
-import {getBooks,addBook,updateBook, deleteBook,deleteBookTag,getBooksTotalCount, getBookById} from './service';
+import {getBooks,addBook,updateBook, deleteBook,deleteBookTag,getBooksTotalCount, getBookById,deleteBookFile} from './service';
 import _ from 'lodash';
 import {createTag,getTagByName,createBookTag,bookHasTag} from '../tag/service'
 import { TagModel } from '../tag/model';
@@ -98,6 +98,17 @@ export const storeBookTag=async(req:Request,res:Response,next:NextFunction) => {
         next(error);
     }
     }
+
+    export const destroyBookFile=async(req:Request,res:Response,next:NextFunction) => {
+        const {bookId}=req.params;
+        try {
+            const data=await deleteBookFile(parseInt(bookId,10));
+            if(data.affectedRows==0) {return next(new Error('File_OF_BOOK_NOT_EXITS'));}
+            res.send(data);
+        } catch (error) {
+            next(error);
+        }
+        }
 
     export const show=async(req:Request,res:Response,next:NextFunction) => {
     const {bookId}=req.params;

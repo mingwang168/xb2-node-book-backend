@@ -9,9 +9,14 @@ import avatarRouter from '../avatar/router';
 import likeRouter from '../like/router';
 import appRouter from './app.router';
 import { defaultErrorHandler } from './middleware';
+var cors = require('cors')
 
 const app=express();
-
+var corsOptions = {
+    allowedHeaders: 'X-Total-Count,Content-Type,authorization',
+    exposedHeaders: 'X-Total-Count,Content-Type,authorization',
+  }
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(bookRouter,userRouter,authRouter,fileRouter,tagRouter,commentRouter,avatarRouter,likeRouter,appRouter);
 app.use(defaultErrorHandler);

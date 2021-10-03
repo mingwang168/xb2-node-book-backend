@@ -1,5 +1,5 @@
 import {Request,Response,NextFunction} from 'express';
-import {createComment, deleteComment, getComments, isReplyComment, updateComment} from './service';
+import {createComment, deleteComment, getComments, isReplyComment, updateComment,deleteCommentByParentId,getCommentsTotalCount} from './service';
 
 export const store=async(req:Request,res:Response,next:NextFunction) => {
 const {content,bookId}=req.body;
@@ -61,7 +61,22 @@ try {
     next(error);
 }
 };
+export const delByParentId=async(req:Request,res:Response,next:NextFunction) => {
+const {parentId}=req.params;
+try {
+    const data=await deleteCommentByParentId(parseInt(parentId,10));
+    res.send(data);
+} catch (error) {
+    next(error);
+}
+};
 export const index=async(req:Request,res:Response,next:NextFunction) => {
+    try {
+        const totalCount=await getCommentsTotalCount({filter:req.filter,pagination:req.pagination});
+        res.header('X-Total-Count',totalCount);
+    } catch (error) {
+        next(error);
+    }
 try{
     const data=await getComments({filter:req.filter,pagination:req.pagination});
     res.send(data);

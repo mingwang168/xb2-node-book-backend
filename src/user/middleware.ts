@@ -28,6 +28,7 @@ try {
 const user=await getUserById(userId!,{password:true});
 const match=await bcrypt.compare(validate.password,user.password);
 if(!match){return next(new Error('PASSWORD_DOES_NOT_MATCH'))};
+
 if(update.name){
     const user=await getUserByName(update.name);
     if(user){return next(new Error('USER_ALREADY_EXIST'))}

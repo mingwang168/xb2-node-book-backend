@@ -3,6 +3,8 @@ import multer,{FileFilterCallback} from "multer";
 import Jimp from "jimp";
 import { imageResizer } from "./service";
 
+const sharp = require('sharp');
+
 export const fileFilter =(fileTypes:Array<string>) => {
   return (
     req: Request,
@@ -31,16 +33,18 @@ export const fileProcessor = async (
   const { path } = req.file!;
   let image: any;
   try {
-    image = await Jimp.read(path);
+    image = await sharp(path);
   } catch (error) {
     next(error);
   }
-  const { imageSize, tags } = image["_exif"];
-  req.fileMetaData={
-      width:imageSize.width,
-      height:imageSize.height,
-      metadata:JSON.stringify(tags)
-  }
-  imageResizer(image,req.file!)
-  next();
+  image.metadata().then(function(metadata:any) {
+
+req.fileMetaData={
+  width:metadata.width,
+  height:metadata.height,
+  metadata:JSON.stringify(metadata)
+}
+imageResizer(metadata,req.file!);
+next();
+  })
 };

@@ -53,6 +53,11 @@ export const deleteBookTag=async (bookId:number,tagId:number) => {
     const [data]=await connection.promise().query(statement,[bookId,tagId]);
     return data as any;
 }
+export const deleteBookFile=async (bookId:number) => {
+    const statement=`delete from file where bookId=?`;
+    const [data]=await connection.promise().query(statement,bookId);
+    return data as any;
+}
 export const getBooksTotalCount=async (options:GetBooksOptions) => {
     const {filter}=options;
     let params=[filter?.param];

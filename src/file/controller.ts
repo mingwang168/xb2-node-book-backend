@@ -39,7 +39,6 @@ if(size){
     if(fileExit){
         filename=`${filename}-${size}`;
         root=path.join(root,resized);
-
     }
 }
 

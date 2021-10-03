@@ -14,4 +14,5 @@ router.patch('/books/:bookId',requestUrl,authGuard,accessControl({possession:tru
 router.delete('/books/:bookId',requestUrl,authGuard,accessControl({possession:true}),bookController.deleteABook);
 router.post('/books/:bookId/tag',authGuard,accessControl({possession:true}),bookController.storeBookTag);
 router.delete('/books/:bookId/tag',authGuard,accessControl({possession:true}),bookController.destroyBookTag);
+router.delete('/books/:bookId/file',authGuard,accessControl({possession:true}),bookController.destroyBookFile);
 export default router;
