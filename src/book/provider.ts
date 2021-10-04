@@ -6,7 +6,7 @@ export const sqlFragment={
     left join user on book.userId=user.id
     `,
     totalComments:`
-    (select count(COMMENT.id) from comment where comment.bookId=book.id) as totalComments
+    (select count(comment.id) from comment where comment.bookId=book.id) as totalComments
     `,
     leftJoinOneFile:`
     left join lateral (
