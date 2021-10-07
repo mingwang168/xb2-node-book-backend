@@ -65,7 +65,11 @@ export const getBooksTotalCount=async (options:GetBooksOptions) => {
      where ${filter!.sql}`;
     const [data]=await connection.promise().query(statement,params);
     const result=data as any;
-    return result[0].total;
+    if(result[0]!==undefined){
+        return result[0].total;
+      }else{
+        return 0;
+      }
 }
 export const getBookById=async (bookId:number) => {
     const statement=`select book.id,book.title,book.author,${sqlFragment.user},${sqlFragment.totalComments},${sqlFragment.file},${sqlFragment.tags},${sqlFragment.userLikeBook} from book ${sqlFragment.leftJoinUser} ${sqlFragment.leftJoinOneFile} ${sqlFragment.leftJoinTag} where book.id=?`;

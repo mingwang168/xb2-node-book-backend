@@ -37,10 +37,14 @@ interface GetCommentsOptions {
 export const getCommentsTotalCount = async (options:GetCommentsOptions) => {
   const {filter}=options;
   let params=[filter?.param];
-  const statement=`select count(distinct comment.id) as total ${filter?.name=='userReplied' ? `,${sqlFragment.repliedComment}`:''} ${filter?.name!=='userReplied' ? `,${sqlFragment.totalReplies}`:''} from comment ${sqlFragment.leftJoinUser} ${sqlFragment.leftJoinBook} where ${filter?.sql} `;
+  const statement=`select count(distinct comment.id) as total ${filter?.name=='userReplied' ? `,${sqlFragment.repliedComment}`:''} ${filter?.name!=='userReplied' ? `,${sqlFragment.totalReplies}`:''} from comment ${sqlFragment.leftJoinUser} ${sqlFragment.leftJoinBook} where ${filter?.sql}  group by comment.id`;
   const [data]=await connection.promise().query(statement,params);
   const result=data as any;
-  return result[0].total;
+  if(result[0]!==undefined){
+    return result[0].total;
+  }else{
+    return 0;
+  }
 }
 export const getComments = async (options: GetCommentsOptions) => {
     const {filter,pagination:{limit,offset},}=options;
